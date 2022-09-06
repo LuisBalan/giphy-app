@@ -10,9 +10,16 @@ export class GifsService {
   get history(){
     return [...this._history]
   };
-
+  
   searchGifs(query: string){
-    this._history.unshift(query);
+    query = query.trim().toLowerCase()
+    if(!this._history.includes(query)){
+      this._history.unshift(query);
+    }else{
+      null
+    };
+
+    this._history = this._history.splice(0, 10);
     console.log(this._history)
   };
 
