@@ -1,7 +1,7 @@
-import { JsonPipe } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Gif, SearchGifResponse } from '../interface/gifs.interface'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,10 +16,10 @@ export class GifsService {
   };
 
   constructor(private http: HttpClient){
-    // if(localStorage.getItem('history')){
-    //   this._history = JSON.parse(localStorage.getItem('history')!)
-    // }
-    this._history = JSON.parse(localStorage.getItem('history')!) || [];
+    if(localStorage.getItem('history')){
+      this._history = JSON.parse(localStorage.getItem('history')!)
+    }
+    // this._history = JSON.parse(localStorage.getItem('history')!) || [];
     if(localStorage.getItem('results')){
       this.results = JSON.parse(localStorage.getItem('results')!)
     }
@@ -41,7 +41,7 @@ export class GifsService {
              
     this.http.get<SearchGifResponse>(`${this.urlService}/search`, {params: params})
       .subscribe((response ) => {
-      console.log(response.data);
+      // console.log(response.data);
       this.results = response.data; 
       localStorage.setItem('results', JSON.stringify(this.results))
     }); 
